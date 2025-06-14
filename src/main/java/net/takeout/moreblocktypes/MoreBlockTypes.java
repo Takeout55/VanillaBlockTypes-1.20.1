@@ -11,21 +11,28 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.takeout.moreblocktypes.block.ModBlocks;
+import net.takeout.moreblocktypes.item.ModCreativeModeTabs;
+import net.takeout.moreblocktypes.item.ModItems;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(TutorialMod.MOD_ID)
-public class TutorialMod {
+@Mod(MoreBlockTypes.MOD_ID)
+public class MoreBlockTypes {
     public static final String MOD_ID = "moreblocktypes";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public TutorialMod() {
+    public MoreBlockTypes() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);
+
+        ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModCreativeModeTabs.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
